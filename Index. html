@@ -1,0 +1,293 @@
+```html
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRD Pvt. Ltd. | Building Reliability, Delivering Success</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#1E3A8A',
+                            900: '#0F2C59',
+                            950: '#0A1E3F',
+                        },
+                        crimson: {
+                            500: '#EF4444',
+                            600: '#DC2626',
+                            700: '#B91C1C',
+                        },
+                        slateCustom: '#334155',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .bg-pattern {
+            background-color: #0F2C59;
+            background-image: radial-gradient(#1E3A8A 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-crimson-600 selection:text-white">
+
+    <!-- Toast Notification Box -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 ease-in-out bg-navy-900 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 border-l-4 border-crimson-600">
+        <i id="toast-icon" class="fas fa-check-circle text-emerald-400 text-xl"></i>
+        <span id="toast-message" class="text-sm font-medium">Notification message</span>
+    </div>
+
+    <!-- MAIN NAVBAR -->
+    <nav class="sticky top-0 z-40 bg-navy-900/95 backdrop-blur-md border-b border-navy-800 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo & Tagline -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="scrollToSection('hero')">
+                    <div class="w-12 h-12 bg-gradient-to-br from-crimson-600 to-amber-500 rounded-xl flex items-center justify-center shadow-lg font-black text-xl tracking-wider border border-white/20">
+                        BRD
+                    </div>
+                    <div>
+                        <span class="text-lg font-extrabold tracking-tight block leading-none">BRD <span class="text-xs font-normal text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded-full border border-amber-400/20 ml-1">VEN-BRDP-1729</span></span>
+                        <span class="text-[10px] text-slate-300 tracking-wider font-semibold uppercase block mt-1">Building Reliability, Delivering Success</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav Links -->
+                <div class="hidden md:flex items-center gap-6 text-sm font-medium">
+                    <a href="#packages" class="hover:text-amber-400 transition-colors">Packages</a>
+                    <a href="#destinations" class="hover:text-amber-400 transition-colors">Destinations</a>
+                    <a href="#planner" class="hover:text-amber-400 transition-colors">Trip Planner</a>
+                    <a href="#comparison" class="hover:text-amber-400 transition-colors">Why BRD?</a>
+                    <a href="#venture" class="hover:text-amber-400 transition-colors">Venture Pitch</a>
+                </div>
+
+                <!-- Right Actions -->
+                <div class="hidden md:flex items-center gap-3">
+                    <button onclick="toggleDashboard(true)" class="relative bg-navy-800 hover:bg-navy-800/80 border border-navy-700 text-slate-200 px-4 py-2 rounded-lg text-sm font-semibold transition-all flex items-center gap-2">
+                        <i class="fas fa-user-circle text-amber-400"></i>
+                        <span>Dashboard</span>
+                        <span id="badge-booking-count" class="bg-crimson-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">1</span>
+                    </button>
+                    <button onclick="scrollToSection('planner')" class="bg-crimson-600 hover:bg-crimson-700 text-white px-4 py-2 rounded-lg text-sm font-bold transition-all shadow-md hover:shadow-crimson-600/30">
+                        Plan My Trip
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button onclick="toggleMobileMenu()" class="text-slate-300 hover:text-white p-2">
+                        <i id="mobile-menu-icon" class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-navy-950 border-b border-navy-800 px-4 pt-2 pb-6 space-y-3">
+            <a href="#packages" onclick="toggleMobileMenu()" class="block py-2 text-slate-200 font-medium">Packages</a>
+            <a href="#destinations" onclick="toggleMobileMenu()" class="block py-2 text-slate-200 font-medium">Destinations</a>
+            <a href="#planner" onclick="toggleMobileMenu()" class="block py-2 text-slate-200 font-medium">Trip Planner</a>
+            <a href="#comparison" onclick="toggleMobileMenu()" class="block py-2 text-slate-200 font-medium">Why BRD?</a>
+            <a href="#venture" onclick="toggleMobileMenu()" class="block py-2 text-slate-200 font-medium">Venture Pitch</a>
+            <div class="pt-2 flex flex-col gap-2">
+                <button onclick="toggleMobileMenu(); toggleDashboard(true)" class="w-full bg-navy-800 text-amber-400 border border-navy-700 py-2.5 rounded-lg text-sm font-semibold flex items-center justify-center gap-2">
+                    <i class="fas fa-user-circle"></i> My Dashboard
+                </button>
+                <button onclick="toggleMobileMenu(); scrollToSection('planner')" class="w-full bg-crimson-600 text-white py-2.5 rounded-lg text-sm font-bold">
+                    Plan My Trip
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="relative bg-pattern text-white py-20 lg:py-28 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-3xl mx-auto text-center">
+                <div class="inline-flex items-center gap-2 bg-crimson-600/20 border border-crimson-500/40 px-3 py-1.5 rounded-full text-xs font-bold text-crimson-400 mb-6 backdrop-blur-md">
+                    <i class="fas fa-shield-alt text-amber-400"></i> Safety Verified & Student Wallet Friendly
+                </div>
+                <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
+                    Affordable Travel Designed for <span class="bg-clip-text text-transparent bg-gradient-to-r from-amber-400 via-rose-400 to-crimson-500">Students & Explorers</span>
+                </h1>
+                <p class="mt-6 text-base sm:text-lg text-slate-300 leading-relaxed font-normal">
+                    BRD Pvt. Ltd. delivers verified safe stays, seamless transport, and pocket-friendly itineraries curated specifically for young travelers & urban students.
+                </p>
+            </div>
+
+            <!-- TABBED SEARCH BAR CONTAINER -->
+            <div class="mt-10 max-w-4xl mx-auto bg-white/10 backdrop-blur-xl p-3 sm:p-4 rounded-2xl border border-white/20 shadow-2xl">
+                <!-- Search Tabs -->
+                <div class="flex gap-2 border-b border-white/10 pb-3 mb-4">
+                    <button onclick="switchHeroTab('trips')" id="tab-trips" class="hero-tab active-hero-tab px-4 py-2 rounded-lg text-xs sm:text-sm font-bold flex items-center gap-2 transition-all">
+                        <i class="fas fa-route"></i> Full Trips
+                    </button>
+                    <button onclick="switchHeroTab('hotels')" id="tab-hotels" class="hero-tab px-4 py-2 rounded-lg text-xs sm:text-sm font-bold flex items-center gap-2 transition-all text-slate-300 hover:text-white">
+                        <i class="fas fa-hotel"></i> Safe Hostels/Stays
+                    </button>
+                    <button onclick="switchHeroTab('transport')" id="tab-transport" class="hero-tab px-4 py-2 rounded-lg text-xs sm:text-sm font-bold flex items-center gap-2 transition-all text-slate-300 hover:text-white">
+                        <i class="fas fa-bus"></i> Transport
+                    </button>
+                </div>
+
+                <!-- Form Fields -->
+                <form onsubmit="handleQuickSearch(event)" class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-3 text-slate-800">
+                    <div class="bg-white p-3 rounded-xl border border-slate-200">
+                        <label class="block text-[11px] font-extrabold uppercase tracking-wider text-slate-400">Destination</label>
+                        <select id="hero-dest" class="w-full text-xs font-bold text-navy-900 bg-transparent focus:outline-none cursor-pointer mt-0.5">
+                            <option value="Kadapa & Rayalaseema">Kadapa & Rayalaseema</option>
+                            <option value="Araku Valley">Araku Valley, AP</option>
+                            <option value="Hyderabad">Hyderabad Heritage</option>
+                            <option value="Munnar">Munnar Hills</option>
+                            <option value="Goa">Goa Budget Coastal</option>
+                        </select>
+                    </div>
+
+                    <div class="bg-white p-3 rounded-xl border border-slate-200">
+                        <label class="block text-[11px] font-extrabold uppercase tracking-wider text-slate-400">Duration & Travelers</label>
+                        <select id="hero-duration" class="w-full text-xs font-bold text-navy-900 bg-transparent focus:outline-none cursor-pointer mt-0.5">
+                            <option value="3">3 Days (Solo / Pair)</option>
+                            <option value="2">2 Days (Weekend Getaway)</option>
+                            <option value="5">5 Days (Group Expedition)</option>
+                        </select>
+                    </div>
+
+                    <div class="bg-white p-3 rounded-xl border border-slate-200">
+                        <label class="block text-[11px] font-extrabold uppercase tracking-wider text-slate-400">Max Budget / Person</label>
+                        <select id="hero-budget" class="w-full text-xs font-bold text-navy-900 bg-transparent focus:outline-none cursor-pointer mt-0.5">
+                            <option value="3500">Under ₹3,500</option>
+                            <option value="5000">Under ₹5,000</option>
+                            <option value="8000">Under ₹8,000</option>
+                        </select>
+                    </div>
+
+                    <div class="sm:col-span-3 lg:col-span-1">
+                        <button type="submit" class="w-full h-full min-h-[48px] bg-crimson-600 hover:bg-crimson-700 text-white font-bold rounded-xl text-sm transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-crimson-600/40">
+                            <i class="fas fa-search"></i> Explore Deals
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- VENTURE SUMMARY & VIABILITY OVERVIEW (EVALUATION SECTION) -->
+    <section id="venture" class="py-16 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-xs font-bold uppercase tracking-widest text-crimson-600 bg-crimson-50 px-3 py-1 rounded-full border border-crimson-100">Venture Viability Analysis</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-navy-900 mt-3">BRD Pvt. Ltd. Strategic Pitch Overview</h2>
+                <p class="text-sm text-slate-600 mt-2">Solving high friction, unverified stays, and inflated costs in young adult budget tourism.</p>
+            </div>
+
+            <!-- Key Metrics Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <div class="bg-gradient-to-br from-navy-900 to-navy-800 text-white p-6 rounded-2xl shadow-md border border-navy-700 relative overflow-hidden">
+                    <div class="text-xs text-amber-400 font-bold uppercase tracking-wider">Total Addressable Market (TAM)</div>
+                    <div class="text-3xl font-black mt-2">$1.0 Billion</div>
+                    <p class="text-xs text-slate-300 mt-2">Overall Indian domestic youth & budget travel sector.</p>
+                    <i class="fas fa-globe-asia absolute right-4 bottom-4 text-white/5 text-6xl"></i>
+                </div>
+                <div class="bg-gradient-to-br from-navy-900 to-navy-800 text-white p-6 rounded-2xl shadow-md border border-navy-700 relative overflow-hidden">
+                    <div class="text-xs text-amber-400 font-bold uppercase tracking-wider">Serviceable Addressable Market (SAM)</div>
+                    <div class="text-3xl font-black mt-2">$300 Million</div>
+                    <p class="text-xs text-slate-300 mt-2">Urban female students & budget group travelers in South India.</p>
+                    <i class="fas fa-users absolute right-4 bottom-4 text-white/5 text-6xl"></i>
+                </div>
+                <div class="bg-gradient-to-br from-crimson-700 to-crimson-600 text-white p-6 rounded-2xl shadow-md border border-crimson-500 relative overflow-hidden">
+                    <div class="text-xs text-amber-200 font-bold uppercase tracking-wider">Serviceable Obtainable Market (SOM)</div>
+                    <div class="text-3xl font-black mt-2">₹50 Lakhs</div>
+                    <p class="text-xs text-red-100 mt-2">Targeted revenue within first 24 months of operation.</p>
+                    <i class="fas fa-chart-line absolute right-4 bottom-4 text-white/5 text-6xl"></i>
+                </div>
+            </div>
+
+            <!-- Persona Spotlight & Solution Quadrant -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Persona Card -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 relative">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-16 h-16 rounded-full bg-amber-100 border-2 border-amber-400 flex items-center justify-center text-amber-700 text-2xl font-bold">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-extrabold uppercase text-crimson-600">Target Persona</span>
+                            <h3 class="text-xl font-bold text-navy-900">Priya, 18 y/o</h3>
+                            <p class="text-xs text-slate-500">Undergraduate Student, Hyderabad</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3 text-xs text-slate-600">
+                        <div class="bg-white p-3 rounded-xl border border-slate-200">
+                            <strong class="text-navy-900 block font-semibold mb-0.5"><i class="fas fa-exclamation-triangle text-amber-500 mr-1"></i> Pain Points:</strong>
+                            Tight student allowance, safety concerns at unknown stays, tedious planning across multiple apps.
+                        </div>
+                        <div class="bg-white p-3 rounded-xl border border-slate-200">
+                            <strong class="text-navy-900 block font-semibold mb-0.5"><i class="fas fa-bullseye text-crimson-600 mr-1"></i> Goals:</strong>
+                            Affordable weekend getaways, verified female-safe accommodations, hassle-free group split billing.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Solution Value Matrix -->
+                <div class="lg:col-span-2 bg-navy-950 text-white rounded-2xl p-6 border border-navy-800 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-navy-900 p-4 rounded-xl border border-navy-800">
+                        <div class="text-amber-400 text-xs font-bold uppercase tracking-wider mb-1"><i class="fas fa-cogs mr-1"></i> Functional Benefits</div>
+                        <p class="text-xs text-slate-300 leading-relaxed">All-in-one booking platform bundling local verified transport, verified budget stays, and day-by-day itineraries with student discounts.</p>
+                    </div>
+                    <div class="bg-navy-900 p-4 rounded-xl border border-navy-800">
+                        <div class="text-amber-400 text-xs font-bold uppercase tracking-wider mb-1"><i class="fas fa-heart mr-1"></i> Emotional Benefits</div>
+                        <p class="text-xs text-slate-300 leading-relaxed">Peace of mind for solo and female travelers with 24/7 safety verification and transparent pricing with no hidden charges.</p>
+                    </div>
+                    <div class="bg-navy-900 p-4 rounded-xl border border-navy-800">
+                        <div class="text-amber-400 text-xs font-bold uppercase tracking-wider mb-1"><i class="fas fa-users mr-1"></i> Social Benefits</div>
+                        <p class="text-xs text-slate-300 leading-relaxed">Easy trip sharing with college peers, student community rewards, and local group experiences.</p>
+                    </div>
+                    <div class="bg-navy-900 p-4 rounded-xl border border-navy-800">
+                        <div class="text-amber-400 text-xs font-bold uppercase tracking-wider mb-1"><i class="fas fa-chart-pie mr-1"></i> Macro Macro Impact</div>
+                        <p class="text-xs text-slate-300 leading-relaxed">Boosts micro-tourism in emerging South Indian circuits like Rayalaseema & Araku while supporting local homestays.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CUSTOM TRIP PLANNER & BUDGET CALCULATOR -->
+    <section id="planner" class="py-16 bg-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="text-xs font-bold uppercase tracking-widest text-navy-800 bg-white px-3 py-1 rounded-full border border-slate-300">Interactive Engine</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-navy-900 mt-3">Custom Trip Planner & Budget Calculator</h2>
+                <p class="text-sm text-slate-600 mt-2">Configure your trip details to calculate real-time estim
